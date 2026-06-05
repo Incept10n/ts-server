@@ -33,5 +33,4 @@ USER ts3
 WORKDIR /opt/ts3
 
 # Запускаем сервер. Флаг license_accepted=1 обязателен!
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["ts3server", "license_accepted=1"]
+ENTRYPOINT ["./entrypoint.sh"]
