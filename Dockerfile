@@ -1,5 +1,11 @@
 # Используем Alpine Linux для минимального размера
-FROM alpine:3.19
+FROM debian:bookworm
+
+RUN apt-get update && apt-get install -y \
+    libmariadb3 \
+    libpq5 \
+    libsqlite3-0 \
+    && rm -rf /var/lib/apt/lists/*
 
 # Указываем версию
 ARG TS_VERSION=3.13.8
