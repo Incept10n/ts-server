@@ -5,13 +5,14 @@ RUN apt-get update && apt-get install -y \
     libmariadb3 \
     libpq5 \
     libsqlite3-0 \
+    tar \
+    bzip2 \
+    wget \
+    bash \
     && rm -rf /var/lib/apt/lists/*
 
 # Указываем версию
 ARG TS_VERSION=3.13.8
-
-# Устанавливаем зависимости (tar для распаковки, bash для скриптов)
-RUN apk add --no-cache tar bzip2 wget bash
 
 # Создаем пользователя для запуска (запуск от root не рекомендуется)
 RUN addgroup -g 1000 ts3 && \
@@ -19,9 +20,9 @@ RUN addgroup -g 1000 ts3 && \
 
 # Скачиваем и распаковываем TeamSpeak Server
 WORKDIR /opt/ts3
-RUN wget -q https://files.teamspeak-services.com/releases/server/${TS_VERSION}/teamspeak3-server_linux_alpine-${TS_VERSION}.tar.bz2 && \
-    tar xjf teamspeak3-server_linux_alpine-${TS_VERSION}.tar.bz2 --strip-components=1 && \
-    rm teamspeak3-server_linux_alpine-${TS_VERSION}.tar.bz2 && \
+RUN wget -q https://files.teamspeak-services.com/releases/server/${TS_VERSION}/teamspeak3-server_linux_amd64-${TS_VERSION}.tar.bz2 && \
+    tar xjf teamspeak3-server_linux_amd64-${TS_VERSION}.tar.bz2 --strip-components=1 && \
+    rm teamspeak3-server_linux_amd64-${TS_VERSION}.tar.bz2 && \
     chown -R ts3:ts3 /opt/ts3
 
 # Копируем скрипт запуска (опционально, но полезно для принятия лицензии)
@@ -35,6 +36,7 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 9987/udp 10011/tcp 30033/tcp
 
 USER ts3
-WORKDIR /opt/ts3
 
-ENTRYPOINT ["/entrypoint.sh"]
+EXPOSE 9987/udp 10011 30033
+
+CMD ["./ts3server"]
