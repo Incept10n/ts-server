@@ -31,4 +31,4 @@ EXPOSE 9987/udp 10011/tcp 30033/tcp
 
 USER ts3
 
-CMD ["/ts3server_startscript.sh", "start"]
+CMD ["ts3server_startscript.sh", "start"]
