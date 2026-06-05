@@ -15,11 +15,6 @@ ARG TS_VERSION=3.13.8
 COPY bootstrap.sh /bootstrap.sh
 RUN chmod +x /bootstrap.sh
 
-RUN groupadd -g 1000 ts3 && \
-    useradd -u 1000 -g ts3 -m -d /opt/ts3 -s /bin/bash ts3
-
-USER ts3
-
 WORKDIR /opt/ts3-src
 RUN wget -q https://files.teamspeak-services.com/releases/server/${TS_VERSION}/teamspeak3-server_linux_amd64-${TS_VERSION}.tar.bz2 && \
     tar xjf teamspeak3-server_linux_amd64-${TS_VERSION}.tar.bz2 --strip-components=1 && \
