@@ -28,9 +28,7 @@ RUN chmod +x /entrypoint.sh
 # 30033: FileTransfer (TCP)
 EXPOSE 9987/udp 10011/tcp 30033/tcp
 
-# Переключаемся на пользователя
 USER ts3
 WORKDIR /opt/ts3
 
-# Запускаем сервер. Флаг license_accepted=1 обязателен!
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
