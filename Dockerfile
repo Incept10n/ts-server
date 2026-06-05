@@ -25,10 +25,6 @@ RUN wget -q https://files.teamspeak-services.com/releases/server/${TS_VERSION}/t
     rm teamspeak3-server_linux_amd64-${TS_VERSION}.tar.bz2 && \
     chown -R ts3:ts3 /opt/ts3
 
-# Копируем скрипт запуска (опционально, но полезно для принятия лицензии)
-COPY --chown=ts3:ts3 entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Открываем порты
 # 9987: Voice (UDP)
 # 10011: ServerQuery (TCP)
