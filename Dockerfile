@@ -1,4 +1,3 @@
-# Используем Alpine Linux для минимального размера
 FROM debian:bookworm
 
 RUN apt-get update && apt-get install -y \
@@ -14,9 +13,8 @@ RUN apt-get update && apt-get install -y \
 # Указываем версию
 ARG TS_VERSION=3.13.8
 
-# Создаем пользователя для запуска (запуск от root не рекомендуется)
-RUN addgroup -g 1000 ts3 && \
-    adduser -D -u 1000 -G ts3 -h /opt/ts3 ts3
+RUN groupadd -g 1000 ts3 && \
+    useradd -u 1000 -g ts3 -m -d /opt/ts3 -s /bin/bash ts3
 
 # Скачиваем и распаковываем TeamSpeak Server
 WORKDIR /opt/ts3
@@ -32,7 +30,5 @@ RUN wget -q https://files.teamspeak-services.com/releases/server/${TS_VERSION}/t
 EXPOSE 9987/udp 10011/tcp 30033/tcp
 
 USER ts3
-
-EXPOSE 9987/udp 10011 30033
 
 CMD ["./ts3server"]
