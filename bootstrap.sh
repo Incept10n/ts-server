@@ -14,4 +14,4 @@ else
 fi
 
 echo "$(date): Starting TeamSpeak server..."
-exec $TARGET_DIR/ts3server start license_accepted=1
+exec $TARGET_DIR/ts3server license_accepted=1
