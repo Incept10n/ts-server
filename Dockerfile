@@ -31,6 +31,6 @@ EXPOSE 9987/udp 10011/tcp 30033/tcp
 
 USER ts3
 
-# ENTRYPOINT ["/opt/ts3/ts3server"]
-# CMD ["license_accepted=1", "minimal_log_level=3"]
-ENTRYPOINT ["/bin/bash", "-c", "exec /opt/ts3/ts3server_startscript.sh start license_accepted=1"]
+# ENTRYPOINT ["/opt/ts3/ts3server_startscript.sh"]
+# CMD ["license_accepted=1"]
+ENTRYPOINT ["/bin/bash", "-c", "/opt/ts3/ts3server_startscript.sh start license_accepted=1"]
